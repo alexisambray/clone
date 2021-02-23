@@ -1,0 +1,4 @@
+.vscode/
+clone
+clone.dSYM/
+package.json
