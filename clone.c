@@ -6,6 +6,7 @@
 typedef struct {
   float x, y;
 } Point;
+
 typedef enum {
   UP = 'U',
   DOWN = 'D',
@@ -102,7 +103,7 @@ float getDistance(Point* cadenceCoords, Point* cloneCoords) {
   getDistance = (powerOne + powerTwo);
   distanceResult = sqrt(getDistance);
 
-  printf("Distance between Cadence and the clone is %f\n", distanceResult);
+  printf("Distance between Cadence and the clone is %.2f\n", distanceResult);
 
   isSafe(getDistance, distanceResult);
 
