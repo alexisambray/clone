@@ -1,6 +1,6 @@
 #include <ctype.h>
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 typedef struct {
   float x, y;
@@ -37,7 +37,7 @@ int main() {
 
   getDistance(&cadenceCoords, &cloneCoords);
 
-      return 0;
+  return 0;
 }
 
 Point getCoordinates(void) {
@@ -53,34 +53,33 @@ Point getCoordinates(void) {
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords) {
   Movement movement;
 
-    printf(
-        "What direction do you want Cadence to move to? [U, D, L, R. Input S "
-        "to "
-        "stop]: ");
-    scanf(" %c", &movement);
-    switch (toupper(movement)) {
-      case UP:
-        (cadenceCoords->y)++;
-        (cloneCoords->y)--;
-        break;
-      case DOWN:
-        (cadenceCoords->y)--;
-        (cloneCoords->y)++;
-        break;
-      case LEFT:
-        (cadenceCoords->x)--;
-        (cloneCoords->x)++;
-        break;
-      case RIGHT:
-        (cadenceCoords->x)++;
-        (cloneCoords->x)--;
-        break;
-      default:
-        movement = STOP;
-    }
-    return movement;
+  printf(
+      "What direction do you want Cadence to move to? [U, D, L, R. Input S "
+      "to "
+      "stop]: ");
+  scanf(" %c", &movement);
+  switch (toupper(movement)) {
+    case UP:
+      (cadenceCoords->y)++;
+      (cloneCoords->y)--;
+      break;
+    case DOWN:
+      (cadenceCoords->y)--;
+      (cloneCoords->y)++;
+      break;
+    case LEFT:
+      (cadenceCoords->x)--;
+      (cloneCoords->x)++;
+      break;
+    case RIGHT:
+      (cadenceCoords->x)++;
+      (cloneCoords->x)--;
+      break;
+    default:
+      movement = STOP;
+  }
+  return movement;
 }
-  
 
 void displayCoordinates(Point point) {
   printf("(%.2f, %.2f)\n", point.x, point.y);
@@ -89,14 +88,13 @@ void displayCoordinates(Point point) {
 // Cadence (X1, Y1)  Clone (X2, Y2)
 // d = sqrt (X2 - X1)^2 + (Y2 - Y1)^2
 float getDistance(Point* cadenceCoords, Point* cloneCoords) {
-
   float distanceOne, distanceTwo, getDistance;
   float powerOne, powerTwo, distanceResult;
 
   distanceOne = (cloneCoords->x) - (cadenceCoords->x);
   powerOne = pow(distanceOne, 2);
   distanceTwo = (cloneCoords->y) - (cadenceCoords->y);
-  powerTwo = pow(distanceTwo,2);
+  powerTwo = pow(distanceTwo, 2);
 
   getDistance = (powerOne + powerTwo);
   distanceResult = sqrt(getDistance);
