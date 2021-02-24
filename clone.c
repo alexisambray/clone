@@ -1,11 +1,11 @@
 #include <ctype.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 typedef struct {
   float x, y;
 } Point;
-
 typedef enum {
   UP = 'U',
   DOWN = 'D',
@@ -18,6 +18,7 @@ Point getCoordinates(void);
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords);
 void displayCoordinates(Point point);
 float getDistance(Point* cadenceCoords, Point* cloneCoords);
+bool isSafe(float getDistance, float distanceResult);
 
 int main() {
   printf("Enter Cadence's coordinates (x, y).\n");
@@ -30,12 +31,14 @@ int main() {
     movement = moveCadence(&cadenceCoords, &cloneCoords);
   } while (movement != STOP);
 
-  printf("Cadence's location: ");
-  displayCoordinates(cadenceCoords);
-  printf("Clones's location: ");
-  displayCoordinates(cloneCoords);
+  do {
+    printf("Cadence's location: ");
+    displayCoordinates(cadenceCoords);
+    printf("Clones's location: ");
+    displayCoordinates(cloneCoords);
 
-  getDistance(&cadenceCoords, &cloneCoords);
+    getDistance(&cadenceCoords, &cloneCoords);
+  } while (isSafe == false);
 
   return 0;
 }
@@ -101,5 +104,19 @@ float getDistance(Point* cadenceCoords, Point* cloneCoords) {
 
   printf("Distance between Cadence and the clone is %f\n", distanceResult);
 
+  isSafe(getDistance, distanceResult);
+
   return 0;
+}
+
+// Returns true if Cadence is safe
+bool isSafe(float getDistance, float distanceResult) {
+  bool isSafe = false;  // initialized as false unless distance is more than 10
+
+  if (distanceResult < 10) {
+    printf("Cadence is NOT SAFE! We can't stop yet!\n");
+  } else {
+    printf("Cadence is safe now! We can stop.\n");
+  }
+  return isSafe = true;
 }
