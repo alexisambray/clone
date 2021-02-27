@@ -19,7 +19,9 @@ Point getCoordinates(void);
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords);
 void displayCoordinates(Point point);
 float getDistance(Point* cadenceCoords, Point* cloneCoords);
+void displayDistance(float distanceResult);
 bool isSafe(float getDistance, float distanceResult);
+void displaySafeOrNot(float distanceResult);
 
 int main() {
   printf("Enter Cadence's coordinates (x, y).\n");
@@ -32,20 +34,20 @@ int main() {
     movement = moveCadence(&cadenceCoords, &cloneCoords);
   } while (movement != STOP);
 
-  do {
-    printf("Cadence's location: ");
-    displayCoordinates(cadenceCoords);
-    printf("Clones's location: ");
-    displayCoordinates(cloneCoords);
+  printf("Cadence's location: ");
+  displayCoordinates(cadenceCoords);
+  printf("Clones's location: ");
+  displayCoordinates(cloneCoords);
 
-    getDistance(&cadenceCoords, &cloneCoords);
-  } while (isSafe == false);
+  printf("Distance between Cadence and the clone is: ");
+  displayDistance(distanceResult);  // ERROR
 
   return 0;
 }
 
 Point getCoordinates(void) {
   Point point;
+
   printf("Enter x coordinate: ");
   scanf("%f", &point.x);
   printf("Enter y coordinate: ");
@@ -103,21 +105,25 @@ float getDistance(Point* cadenceCoords, Point* cloneCoords) {
   getDistance = (powerOne + powerTwo);
   distanceResult = sqrt(getDistance);
 
-  printf("Distance between Cadence and the clone is %.2f\n", distanceResult);
+  return distanceResult;
+}
 
-  isSafe(getDistance, distanceResult);
-
-  return 0;
+void displayDistance(float distanceResult) {
+  printf("%.2f\n", distanceResult);
 }
 
 // Returns true if Cadence is safe
 bool isSafe(float getDistance, float distanceResult) {
   bool isSafe = false;  // initialized as false unless distance is more than 10
 
+  displaySafeOrNot(distanceResult);
+  return isSafe = true;
+}
+
+void displaySafeOrNot(float distanceResult) {
   if (distanceResult < 10) {
     printf("Cadence is NOT SAFE! We can't stop yet!\n");
   } else {
     printf("Cadence is safe now! We can stop.\n");
   }
-  return isSafe = true;
 }
