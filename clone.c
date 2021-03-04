@@ -15,6 +15,7 @@ typedef enum {
   STOP = 'S'
 } Movement;
 
+void getCoords(Point* cadenceCoords, Point* cloneCoords);
 Point getCoordinates(void);
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords);
 void displayCoordinates(Point point);
@@ -23,48 +24,62 @@ bool isSafe(float distance);
 void displaySafeOrNot(bool safe);
 
 int main() {
-  printf("Enter Cadence's coordinates (x, y).\n");
-  Point cadenceCoords = getCoordinates();
-  printf("Enter the clone's coordinates (x, y).\n");
-  Point cloneCoords = getCoordinates();
+  Point cadenceCoords, cloneCoords;
 
-  Movement movement;
+  getCoords(&cadenceCoords, &cloneCoords);
+
+  float distance = 0;
+  bool safe = false;
   do {
-    movement = moveCadence(&cadenceCoords, &cloneCoords);
-  } while (movement != STOP);
+    Movement movement;
+    do {
+      movement = moveCadence(&cadenceCoords, &cloneCoords);
+    } while (movement != STOP);
 
-  printf("Cadence's location: ");
-  displayCoordinates(cadenceCoords);
-  printf("Clones's location: ");
-  displayCoordinates(cloneCoords);
+    printf("Cadence's location: ");
+    displayCoordinates(cadenceCoords);
+    printf("Clones's location: ");
+    displayCoordinates(cloneCoords);
 
-  float distance = getDistance(cadenceCoords, cloneCoords);
-  printf("Distance between Cadence and the clone is: %.2f", distance);
-  displaySafeOrNot(isSafe(distance));
+    distance = getDistance(cadenceCoords, cloneCoords);
+    printf("Distance between Cadence and the clone is: %.2f\n", distance);
+
+    safe = isSafe(distance);
+    displaySafeOrNot(safe);
+  } while (!safe);
 
   return 0;
+}
+
+void getCoords(Point* cadenceCoords, Point* cloneCoords) {
+  printf("Enter Cadence's coordinates (x, y).\n");
+  *cadenceCoords = getCoordinates();
+  printf("Enter the clone's coordinates (x, y).\n");
+  *cloneCoords = getCoordinates();
 }
 
 Point getCoordinates(void) {
   Point point;
 
   printf("Enter x coordinate: ");
-  scanf("%f", &point.x);
+  scanf(" %f", &point.x);
   printf("Enter y coordinate: ");
-  scanf("%f", &point.y);
+  scanf(" %f", &point.y);
 
   return point;
 }
 
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords) {
   Movement movement;
+  char choice;
 
   printf(
       "What direction do you want Cadence to move to? [U, D, L, R. Input S "
       "to "
       "stop]: ");
-  scanf(" %c", &movement);
-  switch (toupper(movement)) {
+  scanf(" %c", &choice);
+  movement = (Movement)toupper(choice);
+  switch (movement) {
     case UP:
       (cadenceCoords->y)++;
       (cloneCoords->y)--;
@@ -104,8 +119,8 @@ bool isSafe(float distance) {
 
 void displaySafeOrNot(bool safe) {
   if (safe) {
-    printf("Cadence is NOT SAFE! We can't stop yet!\n");
-  } else {
     printf("Cadence is safe now! We can stop.\n");
+  } else {
+    printf("Cadence is NOT SAFE! We can't stop yet!\n");
   }
 }
