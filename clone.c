@@ -18,10 +18,9 @@ typedef enum {
 Point getCoordinates(void);
 Movement moveCadence(Point* cadenceCoords, Point* cloneCoords);
 void displayCoordinates(Point point);
-float getDistance(Point* cadenceCoords, Point* cloneCoords);
-void displayDistance(float distanceResult);
-bool isSafe(float getDistance, float distanceResult);
-void displaySafeOrNot(float distanceResult);
+float getDistance(Point point1, Point point2);
+bool isSafe(float distance);
+void displaySafeOrNot(bool safe);
 
 int main() {
   printf("Enter Cadence's coordinates (x, y).\n");
@@ -39,8 +38,9 @@ int main() {
   printf("Clones's location: ");
   displayCoordinates(cloneCoords);
 
-  printf("Distance between Cadence and the clone is: ");
-  displayDistance(distanceResult);  // ERROR
+  float distance = getDistance(cadenceCoords, cloneCoords);
+  printf("Distance between Cadence and the clone is: %.2f", distance);
+  displaySafeOrNot(isSafe(distance));
 
   return 0;
 }
@@ -93,35 +93,17 @@ void displayCoordinates(Point point) {
 
 // Cadence (X1, Y1)  Clone (X2, Y2)
 // d = sqrt (X2 - X1)^2 + (Y2 - Y1)^2
-float getDistance(Point* cadenceCoords, Point* cloneCoords) {
-  float distanceOne, distanceTwo, getDistance;
-  float powerOne, powerTwo, distanceResult;
-
-  distanceOne = (cloneCoords->x) - (cadenceCoords->x);
-  powerOne = pow(distanceOne, 2);
-  distanceTwo = (cloneCoords->y) - (cadenceCoords->y);
-  powerTwo = pow(distanceTwo, 2);
-
-  getDistance = (powerOne + powerTwo);
-  distanceResult = sqrt(getDistance);
-
-  return distanceResult;
-}
-
-void displayDistance(float distanceResult) {
-  printf("%.2f\n", distanceResult);
+float getDistance(Point point1, Point point2) {
+  return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2));
 }
 
 // Returns true if Cadence is safe
-bool isSafe(float getDistance, float distanceResult) {
-  bool isSafe = false;  // initialized as false unless distance is more than 10
-
-  displaySafeOrNot(distanceResult);
-  return isSafe = true;
+bool isSafe(float distance) {
+  return distance >= 10;
 }
 
-void displaySafeOrNot(float distanceResult) {
-  if (distanceResult < 10) {
+void displaySafeOrNot(bool safe) {
+  if (safe) {
     printf("Cadence is NOT SAFE! We can't stop yet!\n");
   } else {
     printf("Cadence is safe now! We can stop.\n");
