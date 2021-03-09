@@ -36,10 +36,7 @@ int main() {
       movement = moveCadence(&cadenceCoords, &cloneCoords);
     } while (movement != STOP);
 
-    printf("Cadence's location: ");
-    displayCoordinates(cadenceCoords);
-    printf("Clones's location: ");
-    displayCoordinates(cloneCoords);
+    displayCoordinates;
 
     distance = getDistance(cadenceCoords, cloneCoords);
     printf("Distance between Cadence and the clone is: %.2f\n", distance);
@@ -103,6 +100,12 @@ Movement moveCadence(Point* cadenceCoords, Point* cloneCoords) {
 }
 
 void displayCoordinates(Point point) {
+  float cadenceCoords, cloneCoords;
+
+  printf("Cadence's location: ");
+  scanf(&cadenceCoords);
+  printf("Clones's location: ");
+  scanf(&cloneCoords);
   printf("(%.2f, %.2f)\n", point.x, point.y);
 }
 
