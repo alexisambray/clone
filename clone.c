@@ -62,7 +62,6 @@ Point getCoordinates(void) {
   scanf(" %f", &point.x);
   printf("Enter y coordinate: ");
   scanf(" %f", &point.y);
-
   return point;
 }
 
